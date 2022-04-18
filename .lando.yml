@@ -1,0 +1,20 @@
+name: randalls-client
+
+proxy:
+  node:
+    - hot.randalls-app.lndo.site
+  
+
+services:
+  node:
+    overrides:
+      platform: linux/x86_64
+    type: node:14
+    build:
+      - "yarn install"
+    ssl: true
+
+tooling:
+  yarn:
+    service: node
+
