@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import axios from '../lib/axios'
+import axios from "@/lib/axios";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -40,7 +40,7 @@ export const useAuth = ({
     setErrors([]);
 
     axios
-      .post("/api/register", props)
+      .post("/register", props)
       .then(() => mutate())
       .catch((error) => {
         if (error.response.status != 422) throw error;
@@ -69,7 +69,7 @@ export const useAuth = ({
     setStatus(null);
 
     return await axios
-      .post("/api/login", {
+      .post("/login", {
         email: email,
         password: password,
         remember: remember,
@@ -98,7 +98,7 @@ export const useAuth = ({
     setStatus(null);
 
     axios
-      .post("/api/forgot-password", { email })
+      .post("/forgot-password", { email })
       .then((response) => setStatus(response.data.status))
       .catch((error) => {
         if (error.response.status != 422) throw error;
@@ -122,7 +122,7 @@ export const useAuth = ({
     setStatus(null);
 
     axios
-      .post("/api/reset-password", { token: router.query.token, ...props })
+      .post("/reset-password", { token: router.query.token, ...props })
       .then((response) =>
         router.push("/login?reset=" + btoa(response.data.status))
       )
@@ -146,7 +146,7 @@ export const useAuth = ({
 
   const logout = async () => {
     if (!error) {
-      await axios.post("/api/logout");
+      await axios.post("/logout");
 
       mutate();
     }
