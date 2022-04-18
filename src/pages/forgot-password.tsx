@@ -30,7 +30,7 @@ const ForgotPassword: NextPage = () => {
                 logo={
                     <Link href="/">
                         <a>
-                            <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+                            <ApplicationLogo className="w-full fill-current text-gray-500" />
                         </a>
                     </Link>
                 }
