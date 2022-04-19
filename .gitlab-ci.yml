@@ -1,0 +1,19 @@
+stages:
+  - build-app
+
+build-app:
+  stage: build-app
+  image: node:14
+  script:
+    - cp .env.test .env
+    - yarn
+    - yarn lint
+    - yarn build
+  cache:
+    paths:
+      - node_modules
+  artifacts:
+    paths:
+      - .next
+      - build
+    expire_in: 1 day
