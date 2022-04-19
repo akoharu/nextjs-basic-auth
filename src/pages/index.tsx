@@ -12,7 +12,7 @@ const Dashboard: NextPage = () => {
             }
         >
             <Head>
-                <title>Laravel - Dashboard</title>
+                <title>Randalls - Dashboard</title>
             </Head>
 
             <div className="py-12">

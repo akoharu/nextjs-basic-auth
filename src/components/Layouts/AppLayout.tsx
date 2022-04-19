@@ -16,6 +16,7 @@ import {
 import { SearchIcon } from '@heroicons/react/solid'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 const navigation = [
     { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -26,7 +27,7 @@ const navigation = [
     { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
@@ -222,10 +223,14 @@ const AppLayout: FC<AppLayoutProps> = ({ header, children }) => {
                                             <span className="sr-only">
                                                 Open user menu
                                             </span>
-                                            <img
+                                            <Image
                                                 className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                src={
+                                                    "https://ui-avatars.com/api?w=32&name="+user?.name
+                                                }
                                                 alt=""
+                                                width={32}
+                                                height={32}
                                             />
                                         </Menu.Button>
                                     </div>
