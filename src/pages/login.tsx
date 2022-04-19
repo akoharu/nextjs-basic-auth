@@ -22,6 +22,7 @@ const Login: NextPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [remember, setRemember] = useState(false)
     const [errors, setErrors] = useState<string[]>([])
     const [status, setStatus] = useState<string | null>(null)
 
@@ -36,7 +37,7 @@ const Login: NextPage = () => {
     const submitForm = async (event: SyntheticEvent) => {
         event.preventDefault()
 
-        login({ email, password, setErrors, setStatus })
+        login({ email, password, remember, setErrors, setStatus })
     }
 
     return (
@@ -106,6 +107,9 @@ const Login: NextPage = () => {
                                 name="remember"
                                 type="checkbox"
                                 className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                                onChange={event =>
+                                    setRemember(event.target.checked)
+                                }
                             />
                             <Label
                                 htmlFor="remember-me"
