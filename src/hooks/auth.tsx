@@ -136,7 +136,6 @@ export const useAuth = ({
         password_confirmation,
         setErrors,
         setStatus,
-        ...props
     }: ResetPasswordTypes) => {
         await csrf()
 
@@ -144,7 +143,12 @@ export const useAuth = ({
         setStatus(null)
 
         axios
-            .post('/reset-password', { token: router.query.token, ...props })
+            .post('/reset-password', {
+                token: router.query.token,
+                email,
+                password,
+                password_confirmation,
+            })
             .then(response =>
                 router.push('/login?reset=' + btoa(response.data.status)),
             )
