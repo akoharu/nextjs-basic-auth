@@ -1,5 +1,6 @@
 stages:
   - build-app
+  - build-image
 
 build-app:
   stage: build-app
@@ -17,3 +18,29 @@ build-app:
       - .next
       - build
     expire_in: 1 day
+  only:
+    refs:
+      - merge_requests
+      - nextjs-basic-auths
+
+build-image:
+  stage: build-image
+  image: docker:18-git
+  services:
+    - docker:18-dind
+  script:
+    # get node app version from package.json for use in tagging docker image
+    - apk update && apk add jq
+    - export VERSION=`jq -r ".version" < ./package.json`
+    # login to docker
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    # build and tag docker image
+    - docker build -t $CI_REGISTRY_IMAGE:$VERSION -t $CI_REGISTRY_IMAGE:latest .
+    # publish finished image
+    - docker push $CI_REGISTRY_IMAGE:$VERSION
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    refs:
+      - master
+      - develop
+      - nextjs-basic-auth
